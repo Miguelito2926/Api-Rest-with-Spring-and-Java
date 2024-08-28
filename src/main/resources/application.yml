@@ -1,0 +1,11 @@
+spring:
+  application:
+  name: rest-api-spring-boot-and-java
+  datasource:
+    driver-class-name:com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/teste_spring?useTimezone=true&serverTimezone=UTC
+  username: root
+  password: root
+jpa.hibernate.ddl-auto: update
+properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+show-sql: true

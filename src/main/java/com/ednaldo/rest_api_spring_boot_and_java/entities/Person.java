@@ -1,4 +1,4 @@
-package com.ednaldo.rest_api_spring_boot_and_java.model;
+package com.ednaldo.rest_api_spring_boot_and_java.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

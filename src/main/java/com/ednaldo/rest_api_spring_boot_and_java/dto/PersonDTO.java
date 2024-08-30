@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@JsonPropertyOrder({"address","firstName","lastName","gender","id"})
+@JsonPropertyOrder({"address","firstName","lastName","gender"})
 public class PersonDTO  implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

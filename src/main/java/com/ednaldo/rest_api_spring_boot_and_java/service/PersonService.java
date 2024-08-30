@@ -4,35 +4,42 @@ import com.ednaldo.rest_api_spring_boot_and_java.dto.PersonDTO;
 import com.ednaldo.rest_api_spring_boot_and_java.entities.Person;
 import com.ednaldo.rest_api_spring_boot_and_java.exceptions.ResourceNotFoundException;
 import com.ednaldo.rest_api_spring_boot_and_java.repositories.PersonRepository;
-import com.ednaldo.rest_api_spring_boot_and_java.utils.DozerMapper;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class PersonService {
 
     private final PersonRepository personRepository;
-    private final DozerMapper dozerMapper = new DozerMapper(); // Instância do mapper
+    private final ModelMapper modelMapper;  // Injetando o ModelMapper como bean
 
     public List<PersonDTO> findAll() {
         List<Person> persons = personRepository.findAll();
-        return DozerMapper.parseListObjects(persons, PersonDTO.class);
+        // Converte a lista de Person para PersonDTO usando o ModelMapper
+        return persons.stream()
+                .map(person -> modelMapper.map(person, PersonDTO.class))
+                .collect(Collectors.toList());
     }
 
     public PersonDTO create(PersonDTO personDTO) {
-        Person person = DozerMapper.parseObject(personDTO, Person.class);
+        // Converte o DTO para entidade Person
+        Person person = modelMapper.map(personDTO, Person.class);
         person = personRepository.save(person);
-        return dozerMapper.parseObject(person, PersonDTO.class);
+        // Converte a entidade salva para DTO
+        return modelMapper.map(person, PersonDTO.class);
     }
 
     public PersonDTO findById(Long id) {
         Person person = personRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID: " + id));
-        return DozerMapper.parseObject(person, PersonDTO.class);
+        // Converte a entidade encontrada para DTO
+        return modelMapper.map(person, PersonDTO.class);
     }
 
     public PersonDTO update(PersonDTO personDTO, Long id) {
@@ -40,7 +47,8 @@ public class PersonService {
             Person person = personRepository.getReferenceById(id);
             updateData(person, personDTO);
             person = personRepository.save(person);
-            return DozerMapper.parseObject(person, PersonDTO.class);
+            // Converte a entidade atualizada para DTO
+            return modelMapper.map(person, PersonDTO.class);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
         }

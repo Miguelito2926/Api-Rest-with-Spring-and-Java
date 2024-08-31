@@ -4,6 +4,7 @@ package com.ednaldo.rest_api_spring_boot_and_java.controller;
 import com.ednaldo.rest_api_spring_boot_and_java.dto.PersonDTO;
 import com.ednaldo.rest_api_spring_boot_and_java.service.PersonService;
 import com.ednaldo.rest_api_spring_boot_and_java.utils.MediaType;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

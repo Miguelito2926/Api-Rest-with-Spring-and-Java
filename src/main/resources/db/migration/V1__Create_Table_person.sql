@@ -1,11 +1,14 @@
 
--- Copiando estrutura para tabela teste_spring.pessoa
 CREATE TABLE IF NOT EXISTS `pessoa` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `nome` varchar(20) NOT NULL,
-  `sobre_nome` varchar(30) NOT NULL,
-  `endereco` varchar(100) DEFAULT NULL,
-  `sexo` varchar(1) DEFAULT NULL,
+  `nome` varchar(50) NOT NULL,
+  `sobrenome` varchar(50) NOT NULL,
+  `email` varchar(100) UNIQUE,
+  `telefone` varchar(15),
+  `endereco` varchar(150),
+  `sexo` varchar(10),
+  `data_nascimento` datetime,
+  `data_criacao` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `data_atualizacao` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
-

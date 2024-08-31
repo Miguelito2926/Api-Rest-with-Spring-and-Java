@@ -1,6 +1,7 @@
 package com.ednaldo.rest_api_spring_boot_and_java.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 //@JsonPropertyOrder({"id", "firstName", "lastName", "email", "phone", "address", "gender", "birthDate", "createdAt", "updatedAt"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

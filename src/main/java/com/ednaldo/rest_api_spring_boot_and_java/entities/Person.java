@@ -1,5 +1,6 @@
 package com.ednaldo.rest_api_spring_boot_and_java.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -17,15 +17,17 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "pessoa")
-public class Person implements Serializable {
+@Table(name = "livro")
+public class Book implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -33,26 +35,17 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", length = 50, nullable = false)
-    private String firstName;
+    @Column(name = "autor", length = 50, nullable = false)
+    private String author;
 
-    @Column(name = "sobrenome", length = 50, nullable = false)
-    private String lastName;
+    @Column(name = "data_lancamento")
+    private Date launch_date;
 
-    @Column(name = "email", length = 100, unique = true)
-    private String email;
+    @Column(name = "preco", precision = 10, scale = 2, nullable = false)
+    private BigDecimal price;
 
-    @Column(name = "telefone", length = 15)
-    private String phone;
-
-    @Column(name = "endereco", length = 150)
-    private String address;
-
-    @Column(name = "sexo", length = 10)
-    private String gender;
-
-    @Column(name = "data_nascimento")
-    private LocalDateTime birthDate;
+    @Column(name = "titulo", length = 100, unique = true)
+    private String title;
 
     @Column(name = "data_criacao", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

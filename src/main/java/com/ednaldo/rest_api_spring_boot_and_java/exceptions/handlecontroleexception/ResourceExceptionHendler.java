@@ -2,6 +2,7 @@ package com.ednaldo.rest_api_spring_boot_and_java.exceptions.handlecontroleexcep
 
 import com.ednaldo.rest_api_spring_boot_and_java.exceptions.EmailAlreadyExistsException;
 import com.ednaldo.rest_api_spring_boot_and_java.exceptions.InvalidFormatEmailException;
+import com.ednaldo.rest_api_spring_boot_and_java.exceptions.InvalidJwtAuhthenticationException;
 import com.ednaldo.rest_api_spring_boot_and_java.exceptions.ResourceNotFoundException;
 import com.ednaldo.rest_api_spring_boot_and_java.exceptions.StandardError;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,6 +40,13 @@ public class ResourceExceptionHendler {
         return ResponseEntity.status(status).body(standardError);
     }
 
+    @ExceptionHandler(InvalidJwtAuhthenticationException.class)
+    public ResponseEntity<StandardError> AuhthenticationException(InvalidJwtAuhthenticationException e, HttpServletRequest request) {
+        String error = "Resource not found";
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        StandardError standardError = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(standardError);
+    }
 //    @ExceptionHandler(DataBaseException.class)
 //    public ResponseEntity<StandardError> database(DataBaseException e, HttpServletRequest request) {
 //        String error = "Database error";

@@ -59,16 +59,16 @@ public class UserService {
     public RegisterResponseDTO registerUser(RegisterRequestDTO request) throws RoleNotFoundException {
         // Validação de dados
         if (request.getUsername() == null || request.getUsername().isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be null or empty");
+            throw new IllegalArgumentException("O nome de usuário não pode ser nulo ou vazio");
         }
         if (request.getPassword() == null || request.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
+            throw new IllegalArgumentException("A senha não pode ser nula ou vazia");
         }
 
         // Buscar papéis (roles) no repositório
         Set<Role> roles = roleRepository.findByName(request.getRole().toString());
         if (roles.isEmpty()) {
-            throw new RoleNotFoundException("Role not found: " + request.getRole());
+            throw new RoleNotFoundException("Função não encontrada: " + request.getRole());
         }
 
         // Criar novo usuário

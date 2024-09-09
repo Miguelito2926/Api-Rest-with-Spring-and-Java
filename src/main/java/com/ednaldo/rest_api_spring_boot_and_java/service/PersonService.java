@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +38,7 @@ public class PersonService {
 
     public PersonDTO findById(Long id) {
         Person person = personRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID: " + id));
         return modelMapper.map(person, PersonDTO.class);
     }
 
@@ -60,7 +59,7 @@ public class PersonService {
 
     public void delete(Long id) {
         Person person = personRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID: " + id));
         personRepository.delete(person);
     }
 

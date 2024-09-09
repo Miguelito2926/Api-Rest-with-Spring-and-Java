@@ -32,6 +32,8 @@ public class AuthController {
         return ResponseEntity.ok(userToken);
     }
 
+    @SuppressWarnings("rawtypes")
+    @Operation(summary = "Cria um perfil e roles desse perfil")
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO data) throws RoleNotFoundException {
         RegisterResponseDTO profile = userService.registerUser(data);

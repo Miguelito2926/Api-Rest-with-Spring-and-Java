@@ -1,5 +1,7 @@
 package com.ednaldo.rest_api_spring_boot_and_java.entities;
 
+import com.ednaldo.rest_api_spring_boot_and_java.dto.AccountCredentialsDTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,23 +10,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User implements Serializable, UserDetails {
+@Table(name = "tb_users")
+public class User implements Serializable {
     private static final long serialVersioUID = 1L;
 
     @Id
@@ -32,60 +33,19 @@ public class User implements Serializable, UserDetails {
     private Long id;
 
     @Column(name = "user_name", unique = true)
-    private String userName;
+    private String username;
 
     private String password;
-    private Boolean accountNonExpired;
-    private Boolean accountNonLocked;
-    private Boolean credentialsNonExpired;
-    private Boolean enabled;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_permission", joinColumns = {@JoinColumn (name = "id_user")},
-    inverseJoinColumns = {@JoinColumn (name = "id_permission")}
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tb_users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Permission> permissions;
+    private Set<Role> roles;
 
-    public List<String> getRoles() {
-        List<String> roles = new ArrayList<>();
-        for (Permission permission : permissions) {
-            roles.add(permission.getDescription());
-        }
-        return roles;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.permissions;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.userName;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return this.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.enabled;
+    public boolean isLoginCorrect(AccountCredentialsDTO request, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(request.password(), this.password);
     }
 }

@@ -80,6 +80,6 @@ public class UserService {
         // Salvando usuário no banco
         User savedUser = userRepository.save(user);
 
-        return new RegisterResponseDTO(savedUser.getUsername(),savedUser.getPassword(),savedUser.getRoles());
+        return new RegisterResponseDTO(savedUser.getUsername(),savedUser.getRoles());
     }
 }

@@ -11,8 +11,7 @@ public class PublicEndpoints {
     public List<String> getEndpoints() {
         return Arrays.asList(
                 "/users/**",
-                "/auth/register",
-                "auth/signin",
+                "/auth/**",
                 "/swagger-ui/**",
                 "/v3/api-docs/**"
                 // Adicione mais endpoints aqui

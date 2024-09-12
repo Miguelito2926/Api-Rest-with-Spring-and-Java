@@ -3,6 +3,7 @@ package com.ednaldo.rest_api_spring_boot_and_java.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,9 @@ public class PersonDTO implements Serializable {
 
     @JsonProperty("sexo")
     private String gender;
+
+    @JsonProperty("ativo")
+    private Boolean enabled;
 
     @JsonProperty("data_nascimento")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")

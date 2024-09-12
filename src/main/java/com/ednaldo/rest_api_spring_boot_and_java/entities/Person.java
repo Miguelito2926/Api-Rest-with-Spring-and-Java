@@ -51,6 +51,9 @@ public class Person implements Serializable {
     @Column(name = "sexo", length = 10)
     private String gender;
 
+    @Column(name = "ativo", nullable = false)
+    private Boolean enabled;
+
     @Column(name = "data_nascimento")
     private LocalDateTime birthDate;
 

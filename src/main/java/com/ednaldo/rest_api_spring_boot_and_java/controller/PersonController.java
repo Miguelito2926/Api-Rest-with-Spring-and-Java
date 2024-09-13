@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -56,7 +57,7 @@ public class PersonController {
         return ResponseEntity.ok().body(list);
     }
 
-    @PostMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+    @PostMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(summary = "Cria um novo usuário",
             tags = {"Pessoas"}, responses = {
             @ApiResponse(description = "Usuário criado com sucesso", responseCode = "201",
@@ -133,4 +134,22 @@ public class PersonController {
         personService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping(value = "/disable/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Desativa uma pessoa específica pelo ID", tags = {"Pessoas"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidFormatEmailException.class))}),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceNotFoundException.class))}),
+                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content())
+            })
+    public ResponseEntity<PersonDTO> disablePerson(@PathVariable Long id) {
+        PersonDTO personDTO = personService.disable(id);
+        return ResponseEntity.ok().body(personDTO);
+    }
 }
+
+

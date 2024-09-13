@@ -7,7 +7,10 @@ import com.ednaldo.rest_api_spring_boot_and_java.repositories.PersonRepository;
 import com.ednaldo.rest_api_spring_boot_and_java.validator.EmailValidation;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +18,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class PersonService {
+
+    private static Logger logger = LoggerFactory.getLogger(PersonService.class);
 
     private final PersonRepository personRepository;
     private final ModelMapper modelMapper;
@@ -62,6 +67,23 @@ public class PersonService {
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID: " + id));
         personRepository.delete(person);
     }
+    @Transactional
+    public PersonDTO disable(Long id) {
+        logger.info("Inativa registro de uma Pessoa!");
+
+        // Primeiro verifica se a pessoa existe
+        Person person = personRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID: " + id));
+
+        // Executa a query para desativar
+        personRepository.disablePerson(id);
+
+        // Atualiza o estado no objeto carregado ou recarrega se necessário
+        person.setEnabled(false);
+
+        return modelMapper.map(person, PersonDTO.class);
+    }
+
 
     private void updateData(Person person, PersonDTO personDTO) {
         person.setFirstName(personDTO.getFirstName());

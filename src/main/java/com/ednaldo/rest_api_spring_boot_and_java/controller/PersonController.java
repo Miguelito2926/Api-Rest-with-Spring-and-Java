@@ -13,6 +13,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,9 +26,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -36,26 +38,35 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    @Operation(summary = "Retorna uma lista de pessoas",
-            tags = {"Pessoas"}, responses = {
-            @ApiResponse(description = "Success", responseCode = "200",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = PersonDTO.class)))
-                    }),
-
-            @ApiResponse(description = "Bad Request", responseCode = "400", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidFormatEmailException.class))}),
-
-            @ApiResponse(description = "Not Found", responseCode = "404", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceNotFoundException.class))}),
-
-            @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content()),
-    })
-    public ResponseEntity<List<PersonDTO>> findAll() {
-        List<PersonDTO> list = personService.findAll();
-        return ResponseEntity.ok().body(list);
+    @Operation(summary = "Retorna uma lista paginada de pessoas",
+            description = "Busca uma lista de pessoas com suporte à paginação. Permite ajustar o número da página e a quantidade de itens por página.",
+            tags = {"Pessoas"},
+            responses = {
+                    @ApiResponse(description = "Lista de pessoas retornada com sucesso", responseCode = "200",
+                            content = {
+                                    @Content(mediaType = "application/json",
+                                            array = @ArraySchema(schema = @Schema(implementation = PersonDTO.class)))
+                            }),
+                    @ApiResponse(description = "Requisição inválida devido a parâmetros incorretos", responseCode = "400",
+                            content = {
+                                    @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidFormatEmailException.class))
+                            }),
+                    @ApiResponse(description = "Nenhuma pessoa encontrada", responseCode = "404",
+                            content = {
+                                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceNotFoundException.class))
+                            }),
+                    @ApiResponse(description = "Erro interno no servidor", responseCode = "500",
+                            content = @Content(mediaType = "application/json"))
+            })
+    public ResponseEntity<Page<PersonDTO>> pageListPersons(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit
+    ) {
+        Pageable pageable = PageRequest.of(page, limit);
+        Page<PersonDTO> personDTOPage = personService.findAll(pageable);
+        return ResponseEntity.ok(personDTOPage);
     }
+
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(summary = "Cria um novo usuário",

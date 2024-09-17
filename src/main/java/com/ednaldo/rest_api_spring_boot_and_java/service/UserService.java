@@ -66,7 +66,7 @@ public class UserService {
         }
 
         // Buscar papéis (roles) no repositório
-        Set<Role> roles = roleRepository.findByName(request.getRole().toString());
+        Set<Role> roles = roleRepository.findByName(request.getRole());
         if (roles.isEmpty()) {
             throw new RoleNotFoundException("Função não encontrada: " + request.getRole());
         }

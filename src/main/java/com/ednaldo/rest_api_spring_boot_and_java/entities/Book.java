@@ -47,6 +47,9 @@ public class Book implements Serializable {
     @Column(name = "titulo", length = 100, unique = true)
     private String title;
 
+    @Column(name = "image_url", length = 100)
+    private String imageUrl;
+
     @Column(name = "data_criacao", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;

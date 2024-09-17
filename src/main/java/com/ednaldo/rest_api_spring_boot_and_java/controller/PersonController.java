@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,9 +61,11 @@ public class PersonController {
             })
     public ResponseEntity<Page<PersonDTO>> pageListPersons(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "limit", defaultValue = "10") int limit
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction
     ) {
-        Pageable pageable = PageRequest.of(page, limit);
+        var sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, limit, sortDirection);
         Page<PersonDTO> personDTOPage = personService.findAll(pageable);
         return ResponseEntity.ok(personDTOPage);
     }

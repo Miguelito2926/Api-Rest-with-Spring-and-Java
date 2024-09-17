@@ -1,17 +1,13 @@
 package com.ednaldo.rest_api_spring_boot_and_java.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -20,9 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BookDTO implements Serializable {
+public class BookDTO extends RepresentationModel<BookDTO> {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -38,6 +33,9 @@ public class BookDTO implements Serializable {
 
     @JsonProperty(value = "titulo")
     private String title;
+
+    @JsonProperty(value = "image")
+    private String imageUrl;
 
     @JsonProperty("data_cadastro")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")

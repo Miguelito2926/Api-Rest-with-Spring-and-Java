@@ -61,11 +61,11 @@ public class PersonController {
             })
     public ResponseEntity<Page<PersonDTO>> pageListPersons(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "direction", defaultValue = "asc") String direction
     ) {
         var sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
-        Pageable pageable = PageRequest.of(page, limit, sortDirection);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "firstName"));
         Page<PersonDTO> personDTOPage = personService.findAll(pageable);
         return ResponseEntity.ok(personDTOPage);
     }

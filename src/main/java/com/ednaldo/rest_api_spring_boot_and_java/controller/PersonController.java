@@ -70,6 +70,40 @@ public class PersonController {
         return ResponseEntity.ok(personDTOPage);
     }
 
+    @GetMapping(value = "findPersonByName/{firstName}",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary = "Retorna uma lista paginada de pessoas por nome",
+            description = "Busca uma lista de pessoas filtrada pelo nome com suporte à paginação. Permite ajustar o número da página e a quantidade de itens por página.",
+            tags = {"Pessoas"},
+            responses = {
+                    @ApiResponse(description = "Lista de pessoas retornada com sucesso", responseCode = "200",
+                            content = {
+                                    @Content(mediaType = "application/json",
+                                            array = @ArraySchema(schema = @Schema(implementation = PersonDTO.class)))
+                            }),
+                    @ApiResponse(description = "Parâmetros inválidos na requisição", responseCode = "400",
+                            content = {
+                                    @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidFormatEmailException.class))
+                            }),
+                    @ApiResponse(description = "Nenhuma pessoa encontrada com o nome fornecido", responseCode = "404",
+                            content = {
+                                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceNotFoundException.class))
+                            }),
+                    @ApiResponse(description = "Erro interno no servidor", responseCode = "500",
+                            content = @Content(mediaType = "application/json"))
+            })
+    public ResponseEntity<Page<PersonDTO>> findPersonsByName(
+            @PathVariable(value = "firstName") String firstName,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction
+    ) {
+        var sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "firstName"));
+        Page<PersonDTO> personDTOPage = personService.findPersonsByName(firstName, pageable);
+        return ResponseEntity.ok(personDTOPage);
+    }
+
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(summary = "Cria um novo usuário",

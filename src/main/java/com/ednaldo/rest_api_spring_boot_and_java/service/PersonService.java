@@ -11,12 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -28,6 +24,14 @@ public class PersonService {
     private final ModelMapper modelMapper;
     private final EmailValidation emailValidation;
 
+    public Page<PersonDTO> findPersonsByName(String firstName, Pageable pageable) {
+        // Obter a página de entidades de Person
+        Page<Person> personPage = personRepository.findPersonsByName(firstName, pageable);
+
+        // Usar o método map da página para converter Person -> PersonDTO
+        return personPage.map(person -> modelMapper.map(person, PersonDTO.class));
+    }
+
     public Page<PersonDTO> findAll(Pageable pageable) {
         // Obter a página de entidades de Person
         Page<Person> personPage = personRepository.findAll(pageable);
@@ -35,7 +39,6 @@ public class PersonService {
         // Usar o método map da página para converter Person -> PersonDTO
         return personPage.map(person -> modelMapper.map(person, PersonDTO.class));
     }
-
 
     public PersonDTO create(PersonDTO personDTO) {
 

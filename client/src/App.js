@@ -1,7 +1,12 @@
 import React from 'react';
-import Header from './Header';
+import './global.css';
+import Login from './pages/Login';
+
 export default function App() {
-  return(
-  <Header>API Rest com react</Header>
+
+  return (  
+
+  <Login/>  
+
   );
 }

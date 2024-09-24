@@ -1,13 +1,13 @@
 import React from "react";
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import Login from './pages/Login';
+import Book from './pages/Book';
 
-export default function Routes() {
-    return (
-        <BrowserRouter>
-        <Switch>
-            <Route path="/" Component={Login}></Route>
-        </Switch>
-        </BrowserRouter>
+export default function AppRoutes() {
+    return (    
+        <Routes>
+            <Route path="/" element={<Login/>}/>
+            <Route path="/book" element={<Book/>}/>
+        </Routes>       
     );
 }

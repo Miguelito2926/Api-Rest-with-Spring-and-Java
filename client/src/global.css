@@ -11,8 +11,7 @@ body {
     font: 400 14px Roboto, sans-serif;
     background: #f3f4f6; /* Fundo claro e suave */
     color: #333333;
-    -webkit-font-smoothing: antialiased;
-    background-image: url('../../client/src/assets/padlock.png'); /* Imagem de fundo como marca d'água */
+    -webkit-font-smoothing: antialiased; 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

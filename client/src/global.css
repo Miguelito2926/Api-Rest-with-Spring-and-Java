@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
     outline: 0;
@@ -8,7 +8,70 @@
 }
 
 body {
-    font:400 14px Roboto, sans-serif;
-    background: #F0F0F5;
+    font: 400 14px Roboto, sans-serif;
+    background: #f3f4f6; /* Fundo claro e suave */
+    color: #333333;
     -webkit-font-smoothing: antialiased;
+    background-image: url('../../client/src/assets/padlock.png'); /* Imagem de fundo como marca d'água */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+input, button, textarea {
+    font: 400 18px Roboto, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+form input {
+    width: 100%;
+    max-width: 400px;
+    height: 50px;
+    color: #333333;
+    border: 2px solid #cccccc; /* Borda mais suave */
+    border-radius: 8px;
+    padding: 0 16px;
+    margin-top: 16px;
+    transition: all 0.3s ease; /* Efeito de transição ao focar */
+}
+
+form input:focus {
+    border-color: #7775bc; /* Borda muda de cor ao focar */
+    box-shadow: 0 0 10px rgba(119, 117, 188, 0.2); /* Efeito de sombra ao focar */
+}
+
+.button {
+    width: 100%;
+    max-width: 400px;
+    height: 50px;
+    background-color: #6366f1; /* Cor do botão mais agradável (tom de roxo) */
+    border: 0;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 700;
+    margin-top: 16px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 50px;
+    transition: background-color 0.3s ease; /* Transição suave na mudança de cor */
+}
+
+.button:hover {
+    background: #4f46e5; /* Cor mais escura ao passar o mouse */
+}
+
+form .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #e0e0e0; /* Borda envolvente */
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85); /* Fundo translúcido */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }

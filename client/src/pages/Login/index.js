@@ -1,22 +1,19 @@
 import './styles.css';
-import padlock from '../../assets/padlock.png';
 import React from 'react';
 
 export default function Login() {
     return (      
-        <div className="login-container">
-<section className="form"></section>
-<img src={padlock} alt="Login"/>
-<form>
-    <h1>Acesse sua conta!</h1>
-    <input placeholder="Nome de Usuário" />
-    <input type="password" placeholder='Password' />
-
-    <button type="submit">Login</button>
-</form>
-
-
-
-        </div>       
+        <div class="Login-container">
+        <section class="form">
+            <h1>Login</h1>
+            <form>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Email" />
+                    <input type="password" placeholder="Senha" />
+                    <button class="button" type="submit">Entrar</button>
+                </div>
+            </form>
+        </section>
+    </div>         
     );
 }

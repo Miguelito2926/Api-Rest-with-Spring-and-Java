@@ -1,18 +1,20 @@
-import './styles.css';
-import React from 'react';
+import './styles.css'; // Certifique-se de que o CSS global está sendo importado aqui.
+import React, { useEffect } from 'react';
 
 export default function Login() {
+    useEffect(() => {
+        // Adicionar a classe de fundo ao body quando o componente é montado
+        document.body.classList.add('login-background');
+
+        // Remover a classe de fundo ao desmontar o componente
+        return () => {
+            document.body.classList.remove('login-background');
+        };
+    }, []);
+
     return (
-        <div className="Login-container" style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDR8fGxhcHRvcHxlbnwwfHx8fDE2MzI4MTg3NjA&ixlib=rb-1.2.1&q=80&w=1080)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            height: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
+        <div>
+        <div className="Login-container">            
             <section className="form">
                 <h1>Login</h1>
                 <form>
@@ -23,6 +25,7 @@ export default function Login() {
                     </div>
                 </form>
             </section>
+        </div>
         </div>
     );
 }

@@ -1,0 +1,100 @@
+/* CSS Global */
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Home Container Styles */
+
+.home-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 40px 20px;
+    margin: 80px auto;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Book Container Styles */
+
+.book-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 20px 30px;
+    margin: 32px auto;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
+    border-radius: 8px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header img {
+    height: 64px;
+    margin-right: 20px;
+}
+
+header span {
+    font-size: 20px;
+}
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 24px;
+    text-align: center; /* Centralizando o título */
+}
+
+/* CRUD Button Styles */
+
+.crud-buttons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.book-card {
+    transition: transform 0.2s;
+}
+
+.book-card:hover {
+    transform: scale(1.05); /* Efeito de zoom no card */
+}
+
+.book-card-content {
+    text-align: left; /* Alinhamento à esquerda do conteúdo */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between; /* Alinha os itens de forma que ocupem todo o espaço */
+    align-items: center;            /* Alinha verticalmente no centro */
+    padding: 10px;                 /* Adiciona um pouco de espaçamento */
+}
+
+.logout-button {
+    background: none;              /* Remove fundo do botão */
+    border: none;                  /* Remove borda do botão */
+    cursor: pointer;               /* Muda o cursor ao passar o mouse */
+    color: #251FC5;                /* Cor do texto */
+    display: flex;                 /* Para alinhar o ícone e o texto */
+    align-items: center;           /* Alinha o ícone e o texto verticalmente */
+    margin-left: auto;             /* Empurra o botão para a direita */
+}
+
+.logout-button strong {
+    margin-left: 5px;              /* Espaçamento entre ícone e texto */
+}
+
+.profile-icon {
+    display: flex;
+    justify-content: center; /* Centraliza o ícone horizontalmente */
+    align-items: center; /* Centraliza o ícone verticalmente */
+    margin-right: 20px; /* Espaçamento à direita */
+}

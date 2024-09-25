@@ -1,0 +1,33 @@
+/* navbar.css */
+
+/* Estilização da Navbar */
+.navbar {
+    background-color: #6366f1; /* Cor de fundo da navbar */
+    padding: 10px 20px; /* Espaçamento interno */
+    display: flex; /* Flexbox para alinhamento */
+    justify-content: space-between; /* Espaço entre os itens */
+    align-items: center; /* Alinhamento vertical */
+    color: white; /* Cor do texto */
+}
+
+/* Estilização dos Links da Navbar */
+.navbar a {
+    color: white; /* Cor do texto dos links */
+    text-decoration: none; /* Remove o sublinhado */
+    padding: 10px 15px; /* Espaçamento interno dos links */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s; /* Transição suave */
+}
+
+.navbar a:hover {
+    background-color: #6366f1; /* Cor ao passar o mouse sobre os links */
+}
+
+/* Estilização do ícone de logout */
+.logout-button {
+    background: none; /* Sem fundo */
+    border: none; /* Sem borda */
+    color: white; /* Cor do texto */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte */
+}

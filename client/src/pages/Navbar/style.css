@@ -1,26 +1,39 @@
 /* navbar.css */
 
 /* Estilização da Navbar */
+/* navbar.css */
+
+/* Estilização da Navbar */
 .navbar {
-    background-color: #6366f1; /* Cor de fundo da navbar */
-    padding: 10px 20px; /* Espaçamento interno */
+    background-color: #6366f1, ; /* Cor de fundo da navbar */
+    padding: 20px 25px; /* Espaçamento interno */
     display: flex; /* Flexbox para alinhamento */
     justify-content: space-between; /* Espaço entre os itens */
     align-items: center; /* Alinhamento vertical */
     color: white; /* Cor do texto */
+    position: fixed; /* Fixa a navbar no topo */
+    top: 0; /* Fixa no topo da tela */
+    left: 0; /* Fixa no lado esquerdo da tela */
+    right: 0; /* Fixa no lado direito da tela */
+    z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
+    
 }
+
+/* Resto do CSS da Navbar permanece igual */
+
 
 /* Estilização dos Links da Navbar */
 .navbar a {
     color: white; /* Cor do texto dos links */
     text-decoration: none; /* Remove o sublinhado */
     padding: 10px 15px; /* Espaçamento interno dos links */
-    border-radius: 5px; /* Bordas arredondadas */
+    border-radius: 20px; /* Bordas arredondadas */
     transition: background-color 0.3s; /* Transição suave */
+   
 }
 
 .navbar a:hover {
-    background-color: #6366f1; /* Cor ao passar o mouse sobre os links */
+    background-color: #4b4eae; /* Cor ao passar o mouse sobre os links */
 }
 
 /* Estilização do ícone de logout */

@@ -1,0 +1,104 @@
+/* Geral */
+* {
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+
+.new-book-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 80px auto; /* Aumentando a margem para dar espaço em cima */
+  padding: 45px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.form p {
+  color: #737380;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  color: #251fc5;
+  font-size: 16px;
+  text-decoration: none;
+  margin-bottom: 25px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #4149df;
+}
+
+form input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  margin-bottom: 16px;
+  border: 1px solid #dcdce6;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  font-size: 16px;
+  color: #333;
+  transition: border-color 0.2s;
+}
+
+form input:focus {
+  border-color: #251fc5;
+}
+
+form button {
+  width: 100%; /* Faz o botão ocupar 100% do espaço disponível */
+  align-items: center;
+}
+
+.button {
+  width: 100%; /* Mudar para 100% para que o botão ocupe toda a largura */
+  padding: 10px; /* Aumentar o padding para um botão mais espaçoso */
+  background-color: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #4149df;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .new-book-container {
+      padding: 15px;
+      max-width: 90%;
+  }
+
+  .form h1 {
+      font-size: 20px;
+  }
+}

@@ -5,6 +5,7 @@ const theme = createTheme({
     palette: {
         primary: {
             main: '#6366f1', // sua cor personalizada
+            
         },
         secondary: {
             main: '#ff4081', // você pode ajustar ou remover

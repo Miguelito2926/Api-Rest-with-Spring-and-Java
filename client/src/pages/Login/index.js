@@ -1,5 +1,6 @@
 import './styles.css'; // Certifique-se de que o CSS global está sendo importado aqui.
 import React, { useEffect } from 'react';
+import Navbar from '../Navbar/index';
 
 export default function Login() {
     useEffect(() => {
@@ -14,18 +15,19 @@ export default function Login() {
 
     return (
         <div>
-        <div className="Login-container">            
-            <section className="form">
-                <h1>Login</h1>
-                <form>
-                    <div className="input-wrapper">
-                        <input type="text" placeholder="Email" />
-                        <input type="password" placeholder="Senha" />
-                        <button className="button" type="submit">Entrar</button>
-                    </div>
-                </form>
-            </section>
-        </div>
+            <Navbar />           
+            <div className="login-container" style={{ padding: '20px', marginTop: '64px' }}> {/* Adiciona margem para não ficar atrás da navbar */}
+                <section className="form">
+                    <h1>Login</h1>
+                    <form>
+                        <div className="input-wrapper">
+                            <input type="text" placeholder="Email" />
+                            <input type="password" placeholder="Senha" />
+                            <button className="button" type="submit">Entrar</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </div>
     );
 }

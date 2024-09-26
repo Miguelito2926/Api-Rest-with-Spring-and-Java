@@ -2,16 +2,16 @@
 
 /* Estilização do container da Home */
 .home-container {
-    text-align: center; /* Centraliza o texto */
-    padding: 50px; /* Espaçamento interno */
-    background-color: #f5f5f5; /* Cor de fundo da página */
+    text-align: center; /* Centraliza o texto */   
+    padding: 5%;
+    background: rgba(255, 255, 255, 0.8); /* Fundo branco com leve transparência */
 }
 
 /* Título principal */
 .home-container h2 {
     color: #6366f1; /* Cor do título */
     font-size: 2.5rem; /* Tamanho da fonte */
-    margin-bottom: 20px; /* Espaço abaixo do título */
+    margin-bottom: 20%; /* Espaço abaixo do título */
 }
 
 /* Subtítulo */
@@ -26,12 +26,31 @@
     background-color: #6366f1; /* Cor de fundo do botão */
     color: white; /* Cor do texto */
     border: none; /* Sem borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 20px; /* Bordas arredondadas */
+    padding: 10px 10px; /* Espaçamento interno */
     cursor: pointer; /* Cursor de mão ao passar o mouse */
     transition: background-color 0.3s; /* Transição suave */
+    width: 20%;
+    opacity: 75%;
 }
 
 .home-container .button:hover {
     background-color: #4e54c8; /* Cor ao passar o mouse */
+}
+.logout-button {
+    background: none;              /* Remove fundo do botão */
+    border: none;                  /* Remove borda do botão */
+    cursor: pointer;               /* Muda o cursor ao passar o mouse */
+    color: #251FC5;                /* Cor do texto */
+    display: flex;                 /* Para alinhar o ícone e o texto */
+    align-items: center;           /* Alinha o ícone e o texto verticalmente */
+    margin-left: auto;             /* Empurra o botão para a direita */
+}
+
+
+.profile-icon {
+    display: flex;
+    justify-content: center; /* Centraliza o ícone horizontalmente */
+    align-items: center; /* Centraliza o ícone verticalmente */
+    margin-right: 30px; /* Espaçamento à direita */
 }

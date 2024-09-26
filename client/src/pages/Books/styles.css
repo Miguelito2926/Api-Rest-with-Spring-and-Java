@@ -7,38 +7,19 @@ body {
     background-size: cover;
 }
 
-/* Home Container Styles */
-
-.home-container {
-    width: 100%;
-    max-width: 600px;
-    padding: 40px 20px;
-    margin: 80px auto;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
-    border-radius: 8px;
-    text-align: center;
-}
-
 /* Book Container Styles */
 
 .book-container {
     width: 100%;
-    max-width: 1180px;
-    padding: 20px 30px;
-    margin: 32px auto;
+    padding: 20px; /* Removendo max-width */
+    margin: 0; /* Remover margem para usar toda a tela */
     background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
-    border-radius: 8px;
 }
 
 header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-header img {
-    height: 64px;
-    margin-right: 20px;
+    margin-bottom: 10px;
 }
 
 header span {
@@ -46,8 +27,8 @@ header span {
 }
 
 h1 {
-    margin-top: 20px;
-    margin-bottom: 24px;
+    margin-top: 10px;
+    margin-bottom: 25px;
     text-align: center; /* Centralizando o título */
 }
 
@@ -78,23 +59,8 @@ h1 {
     padding: 10px;                 /* Adiciona um pouco de espaçamento */
 }
 
-.logout-button {
-    background: none;              /* Remove fundo do botão */
-    border: none;                  /* Remove borda do botão */
-    cursor: pointer;               /* Muda o cursor ao passar o mouse */
-    color: #251FC5;                /* Cor do texto */
-    display: flex;                 /* Para alinhar o ícone e o texto */
-    align-items: center;           /* Alinha o ícone e o texto verticalmente */
-    margin-left: auto;             /* Empurra o botão para a direita */
-}
 
 .logout-button strong {
     margin-left: 5px;              /* Espaçamento entre ícone e texto */
 }
 
-.profile-icon {
-    display: flex;
-    justify-content: center; /* Centraliza o ícone horizontalmente */
-    align-items: center; /* Centraliza o ícone verticalmente */
-    margin-right: 20px; /* Espaçamento à direita */
-}

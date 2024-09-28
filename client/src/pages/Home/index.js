@@ -5,8 +5,12 @@ import { Typography, Button } from '@mui/material';
 import Navbar from '../Navbar'; // Ajuste o caminho conforme necessário
 import './style.css'; // Importando o CSS da Home
 import {FiPower, FiUser } from 'react-icons/fi';
+import api from '../../services/api';
 
-export default function Home() {
+export default function Home() {   
+
+    const username = localStorage.getItem('username');  
+
     return (
         <div>
             <Navbar />
@@ -15,7 +19,7 @@ export default function Home() {
                 <div className="profile-icon">
                     <FiUser size={100} color="#251FC5" />
                 </div>
-                <span>Bem-vindo, <strong>Ednaldo</strong>!</span>
+                <span>Bem-vindo, <strong>{username.toUpperCase()}</strong>!</span>
                 <button type="button" className="logout-button">
                     <FiPower size={40} color="#251FC5" /> <strong>Logout</strong>
                 </button>

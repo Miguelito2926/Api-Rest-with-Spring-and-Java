@@ -1,0 +1,20 @@
+1. **1984**: https://covers.openlibrary.org/b/id/153893-L.jpg
+2. **Harry Potter and the Philosopher's Stone**: https://covers.openlibrary.org/b/id/739254-L.jpg
+3. **The Lord of the Rings**: https://covers.openlibrary.org/b/id/1230957-L.jpg
+4. **To Kill a Mockingbird**: https://covers.openlibrary.org/b/id/242081-L.jpg
+5. **The Great Gatsby**: https://covers.openlibrary.org/b/id/470810-L.jpg
+6. **One Hundred Years of Solitude**: https://covers.openlibrary.org/b/id/740209-L.jpg
+7. **War and Peace**: https://covers.openlibrary.org/b/id/794064-L.jpg
+8. **Moby-Dick**: https://covers.openlibrary.org/b/id/7228354-L.jpg
+9. **Pride and Prejudice**: https://covers.openlibrary.org/b/id/799597-L.jpg
+10. **The Adventures of Huckleberry Finn**: https://covers.openlibrary.org/b/id/1017242-L.jpg
+11. **A Tale of Two Cities**: https://covers.openlibrary.org/b/id/200871-L.jpg
+12. **Brave New World**: https://covers.openlibrary.org/b/id/830643-L.jpg
+13. **The Old Man and the Sea**: https://covers.openlibrary.org/b/id/741481-L.jpg
+14. **Fahrenheit 451**: https://covers.openlibrary.org/b/id/7695930-L.jpg
+15. **Catch-22**: https://covers.openlibrary.org/b/id/7204163-L.jpg
+16. **Slaughterhouse-Five**: https://covers.openlibrary.org/b/id/729746-L.jpg
+17. **Crime and Punishment**: https://covers.openlibrary.org/b/id/796352-L.jpg
+18. **Frankenstein**: https://covers.openlibrary.org/b/id/745971-L.jpg
+19. **Mrs. Dalloway**: https://covers.openlibrary.org/b/id/1476950-L.jpg
+20. **Ulysses**: https://covers.openlibrary.org/b/id/60888-L.jpg

@@ -7,8 +7,8 @@ import NewBook from './pages/NewBook/index';
 export default function AppRoutes() {
     return (    
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/books" element={<Books />} />
             <Route path="/new" element={<NewBook />} />            
         </Routes>       

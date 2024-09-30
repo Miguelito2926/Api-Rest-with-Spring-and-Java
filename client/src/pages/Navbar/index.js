@@ -13,10 +13,10 @@ export default function Navbar() {
 
                 {/* Botões à direita */}
                 <Box>
-                    <Button color="inherit" component={Link} to="/" sx={{ marginLeft: 4, marginBottom:4 }}>
+                    <Button color="inherit" component={Link} to="/home" sx={{ marginLeft: 4, marginBottom:4 }}>
                         Home
                     </Button>
-                    <Button color="inherit" component={Link} to="/login" sx={{ marginLeft: 4, marginBottom:4 }}>
+                    <Button color="inherit" component={Link} to="/" sx={{ marginLeft: 4, marginBottom:4 }}>
                         Login
                     </Button>
                     <Button color="inherit" component={Link} to="/books" sx={{ marginLeft: 4, marginBottom:4 }}>

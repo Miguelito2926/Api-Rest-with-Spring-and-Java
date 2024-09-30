@@ -52,5 +52,6 @@
     display: flex;
     justify-content: center; /* Centraliza o ícone horizontalmente */
     align-items: center; /* Centraliza o ícone verticalmente */
-    margin-right: 30px; /* Espaçamento à direita */
+    margin-right: 10px; /* Espaçamento à direita */
+    padding-right: 0%;
 }

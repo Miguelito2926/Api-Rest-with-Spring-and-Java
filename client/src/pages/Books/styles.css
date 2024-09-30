@@ -16,16 +16,6 @@ body {
     background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
 }
 
-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-header span {
-    font-size: 20px;
-}
-
 h1 {
     margin-top: 10px;
     margin-bottom: 25px;
@@ -41,7 +31,9 @@ h1 {
 }
 
 .book-card {
-    transition: transform 0.2s;
+    transition: transform 0.2s; 
+    width: 95%;
+
 }
 
 .book-card:hover {
@@ -49,18 +41,30 @@ h1 {
 }
 
 .book-card-content {
-    text-align: left; /* Alinhamento à esquerda do conteúdo */
-}
-
-.header {
     display: flex;
-    justify-content: space-between; /* Alinha os itens de forma que ocupem todo o espaço */
-    align-items: center;            /* Alinha verticalmente no centro */
-    padding: 10px;                 /* Adiciona um pouco de espaçamento */
+    flex-direction: column; /* Direção em coluna para o conteúdo */
 }
 
-
-.logout-button strong {
-    margin-left: 5px;              /* Espaçamento entre ícone e texto */
+/* Book Info Styles */
+.book-info {
+    display: flex; /* Usando flexbox para alinhar a imagem e o texto */
+    align-items: center; /* Alinhamento vertical centralizado */
 }
 
+.book-image {
+    width: 200px; /* Tamanho da miniatura */
+    height: 300px; /* Tamanho da miniatura */
+    object-fit: cover; /* Corta a imagem se necessário */
+    margin-right: 20px; /* Espaço entre a imagem e o texto */
+}
+
+.book-details {
+    flex-grow: 1; /* Permite que as informações ocupem o espaço restante */
+}
+
+/* Actions Styles */
+.book-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px; /* Espaço acima dos ícones */
+}

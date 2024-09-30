@@ -5,10 +5,11 @@ import { Typography, Button } from '@mui/material';
 import Navbar from '../Navbar'; // Ajuste o caminho conforme necessário
 import './style.css'; // Importando o CSS da Home
 import {FiPower, FiUser } from 'react-icons/fi';
-import api from '../../services/api';
+import useLogout from '../../utils/useLogout';
 
 export default function Home() {   
 
+    const logout = useLogout(); // Usa o hook personalizado para o logout
     const username = localStorage.getItem('username');  
 
     return (
@@ -19,10 +20,7 @@ export default function Home() {
                 <div className="profile-icon">
                     <FiUser size={100} color="#251FC5" />
                 </div>
-                <span>Bem-vindo, <strong>{username.toUpperCase()}</strong>!</span>
-                <button type="button" className="logout-button">
-                    <FiPower size={40} color="#251FC5" /> <strong>Logout</strong>
-                </button>
+                <span>Bem-vindo, <strong>{username.toUpperCase()}</strong>!</span>                
             </header>
                 <Typography variant="h2" component="h1" gutterBottom>
                     Bem-vindo ao Meu Livro

@@ -26,7 +26,7 @@ export default function Login() {
             localStorage.setItem('accessToken', response.data.token);
 
             // Navegar para a rota 'books'
-            navigate('/');
+            navigate('/home');
             
         } catch (error) {
             alert('Login ou Senha inválida!');

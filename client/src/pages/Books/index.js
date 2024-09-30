@@ -8,49 +8,61 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiPower } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 import Navbar from "../Navbar";
+import useLogout from '../../utils/useLogout';
 
 export default function Book() {
-  const [books, setBooks] = useState([]); // Estado para armazenar a lista de livros
-  const [currentPage, setCurrentPage] = useState(0); // Estado para controlar a página atual
-  const itemsPerPage = 12; // Número de itens por página
+  const [books, setBooks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 9;
   const accessToken = localStorage.getItem("accessToken");
+  const logout = useLogout(); // Usa o hook personalizado para o logout
 
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
 
-  // Efeito para buscar os livros da API ao montar o componente
-  useEffect(() => {
-    api
-      .get("v1/books", { headers })
-      .then((response) => {
-        setBooks(response.data); // Acesse diretamente a resposta como um array
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar os livros:", error);
-      });
-  }, []);
+  async function deleteBook(id) {
+    try {
+      await api.delete(`v1/books/${id}`, { headers });
+      setBooks(books.filter(book => book.id !== id))
+    } catch (error) {
+        alert("Não foi possivel deletae esse id na base de dados!")
+    }
+  }
 
-  // Função para avançar para a próxima página
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await api.get("v1/books", { headers });
+        setBooks(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar os livros:", error);
+      }
+    };
+
+    fetchBooks();
+  }, []); // Removido 'headers' da lista de dependências
+
   const handleNextPage = () => {
     if ((currentPage + 1) * itemsPerPage < books.length) {
-      setCurrentPage(currentPage + 1); // Incrementa a página atual
+      setCurrentPage(currentPage + 1);
     }
   };
 
-  // Função para voltar para a página anterior
   const handlePrevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 1); // Decrementa a página atual
+      setCurrentPage(currentPage - 1);
     }
   };
 
-  // Seleciona os livros a serem exibidos com base na página atual
-  const displayedBooks = books.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+  const displayedBooks = books.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   return (
     <div className="book-container">
@@ -66,41 +78,59 @@ export default function Book() {
           to="/new"
         >
           Adicionar Livro
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          style={{ marginLeft: "10px" }}
-          component={Link}
-          to="book/remove"
-        >
-          Remover Livro
-        </Button>
+        </Button>       
+        <button onClick={logout} type="button" className="logout-button">
+                    <FiPower size={40} color="#251FC5" /> <strong>Logout</strong>
+                </button>
       </div>
 
-      <Grid container spacing={3}>
-        {displayedBooks.map((book, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card className="book-card" style={{ height: "100%" }}>
-              <CardContent className="book-card-content" style={{ height: "100%" }}>
-                <Typography variant="h6" color="primary">
-                  Título: {book.titulo}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" gutterBottom>
-                  Autor: {book.autor}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" gutterBottom>
-                  Preço: R$ {book.preco.toFixed(2).replace(".", ",")}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" style={{ flexGrow: 1 }}>
-                  Data de Lançamento: {new Date(book.data_lancamento).toLocaleDateString()}
-                </Typography>
+      <Grid container spacing={1}>
+        {displayedBooks.map((book) => (
+          <Grid item xs={9} sm={6} md={4} key={book.id}>
+            <Card
+              className="book-card"
+              style={{ height: "100%", position: "relative" }}
+            >
+              <CardContent className="book-card-content">
+                <div className="book-info">
+                  <img
+                    src={book.image} // Coloque uma URL padrão aqui
+                    alt={book.titulo}
+                    className="book-image"
+                    onError={(e) => {
+                      e.target.src = "url_da_imagem_padrao";
+                    }} // Imagem padrão em caso de erro
+                  />
+                  <div className="book-details">
+                    <Typography variant="h6" style={{ color: "black" }}>
+                      Título: {book.titulo}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      style={{ color: "gray" }}
+                      gutterBottom
+                    >
+                      Autor: {book.autor}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      style={{ color: "gray" }}
+                      gutterBottom
+                    >
+                      Preço: R$ {book.preco.toFixed(2).replace(".", ",")}
+                    </Typography>
+                    <Typography variant="body2" style={{ color: "gray" }}>
+                      Data de Lançamento:{" "}
+                      {new Date(book.data_lancamento).toLocaleDateString()}
+                    </Typography>
+                  </div>
+                </div>
 
-                <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
+                <div className="book-actions">
                   <IconButton aria-label="edit">
-                    <FiEdit size={30} color="#6366f1" />
+                    <FiEdit size={30} color="#000000" />
                   </IconButton>
-                  <IconButton aria-label="delete">
+                  <IconButton  onClick={() => deleteBook(book.id)} aria-label="delete">
                     <FiTrash2 size={30} color="#ff4d4d" />
                   </IconButton>
                 </div>
@@ -110,13 +140,25 @@ export default function Book() {
         ))}
       </Grid>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px'}}>
-        {/* Botão para voltar à página anterior */}
-        <Button variant="outlined" onClick={handlePrevPage} disabled={currentPage === 0}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+        }}
+      >
+        <Button
+          variant="outlined"
+          onClick={handlePrevPage}
+          disabled={currentPage === 0}
+        >
           Anterior
         </Button>
-        {/* Botão para avançar para a próxima página */}
-        <Button variant="outlined" onClick={handleNextPage} disabled={(currentPage + 1) * itemsPerPage >= books.length}>
+        <Button
+          variant="outlined"
+          onClick={handleNextPage}
+          disabled={(currentPage + 1) * itemsPerPage >= books.length}
+        >
           Próxima
         </Button>
       </div>

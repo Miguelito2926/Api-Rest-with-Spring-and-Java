@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './style.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import Navbar from '../Navbar';
 import api from '../../services/api';
@@ -12,9 +12,9 @@ export default function NewBook() {
   const [data_lancamento, setLaucnhDate] = useState('');
   const [preco, setPrice] = useState('');
   const [titulo, setTitle] = useState(''); 
+  const {bookId} = useParams();
 
   const accessToken = localStorage.getItem('accessToken');
-
   const navigate = useNavigate();
 
   async function createNewBook(event) {

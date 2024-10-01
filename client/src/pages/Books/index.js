@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FiEdit, FiTrash2, FiPower } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import Navbar from "../Navbar";
 import useLogout from '../../utils/useLogout';
@@ -20,17 +20,26 @@ export default function Book() {
   const itemsPerPage = 9;
   const accessToken = localStorage.getItem("accessToken");
   const logout = useLogout(); // Usa o hook personalizado para o logout
+  const navigate = useNavigate(); // Corrigido aqui
 
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
 
+  async function editBook(id) {
+    try {
+      navigate(`/new/${id}`); // Corrigido aqui
+    } catch (error) {
+      alert("Não foi possível atualizar o livro. Tente novamente!");
+    }
+  }
+
   async function deleteBook(id) {
     try {
       await api.delete(`v1/books/${id}`, { headers });
-      setBooks(books.filter(book => book.id !== id))
+      setBooks(books.filter(book => book.id !== id));
     } catch (error) {
-        alert("Não foi possivel deletae esse id na base de dados!")
+      alert("Não foi possível deletar esse livro da base de dados!");
     }
   }
 
@@ -75,13 +84,13 @@ export default function Book() {
           color="success"
           style={{ marginLeft: "10px" }}
           component={Link}
-          to="/new"
+          to="/new/0"
         >
           Adicionar Livro
-        </Button>       
+        </Button>
         <button onClick={logout} type="button" className="logout-button">
-                    <FiPower size={40} color="#251FC5" /> <strong>Logout</strong>
-                </button>
+          <FiPower size={40} color="#251FC5" /> <strong>Logout</strong>
+        </button>
       </div>
 
       <Grid container spacing={1}>
@@ -127,10 +136,10 @@ export default function Book() {
                 </div>
 
                 <div className="book-actions">
-                  <IconButton aria-label="edit">
+                  <IconButton onClick={() => editBook(book.id)} aria-label="edit">
                     <FiEdit size={30} color="#000000" />
                   </IconButton>
-                  <IconButton  onClick={() => deleteBook(book.id)} aria-label="delete">
+                  <IconButton onClick={() => deleteBook(book.id)} aria-label="delete">
                     <FiTrash2 size={30} color="#ff4d4d" />
                   </IconButton>
                 </div>

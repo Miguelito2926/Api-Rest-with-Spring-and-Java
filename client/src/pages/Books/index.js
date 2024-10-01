@@ -9,30 +9,23 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FiEdit, FiTrash2, FiPower } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../../services/api";
 import Navbar from "../Navbar";
 import useLogout from '../../utils/useLogout';
 
 export default function Book() {
+  
   const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 9;
+  const logout = useLogout();  
+  
   const accessToken = localStorage.getItem("accessToken");
-  const logout = useLogout(); // Usa o hook personalizado para o logout
-  const navigate = useNavigate(); // Corrigido aqui
-
   const headers = {
     Authorization: `Bearer ${accessToken}`,
-  };
-
-  async function editBook(id) {
-    try {
-      navigate(`/new/${id}`); // Corrigido aqui
-    } catch (error) {
-      alert("Não foi possível atualizar o livro. Tente novamente!");
-    }
-  }
+  }; 
 
   async function deleteBook(id) {
     try {
@@ -45,16 +38,20 @@ export default function Book() {
 
   useEffect(() => {
     const fetchBooks = async () => {
+      setLoading(true);
       try {
         const response = await api.get("v1/books", { headers });
+        console.log("Dados dos Livros:", response.data);
         setBooks(response.data);
       } catch (error) {
         console.error("Erro ao buscar os livros:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchBooks();
-  }, []); // Removido 'headers' da lista de dependências
+  }, []);
 
   const handleNextPage = () => {
     if ((currentPage + 1) * itemsPerPage < books.length) {
@@ -93,61 +90,73 @@ export default function Book() {
         </button>
       </div>
 
-      <Grid container spacing={1}>
-        {displayedBooks.map((book) => (
-          <Grid item xs={9} sm={6} md={4} key={book.id}>
-            <Card
-              className="book-card"
-              style={{ height: "100%", position: "relative" }}
-            >
-              <CardContent className="book-card-content">
-                <div className="book-info">
-                  <img
-                    src={book.image} // Coloque uma URL padrão aqui
-                    alt={book.titulo}
-                    className="book-image"
-                    onError={(e) => {
-                      e.target.src = "url_da_imagem_padrao";
-                    }} // Imagem padrão em caso de erro
-                  />
-                  <div className="book-details">
-                    <Typography variant="h6" style={{ color: "black" }}>
-                      Título: {book.titulo}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      style={{ color: "gray" }}
-                      gutterBottom
-                    >
-                      Autor: {book.autor}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      style={{ color: "gray" }}
-                      gutterBottom
-                    >
-                      Preço:{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(book.preco)}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "gray" }}>
-                      Data de Lançamento:{" "}
-                      {new Date(book.data_lancamento).toLocaleDateString()}
-                    </Typography>
-                  </div>
-                </div>
+      {loading ? (
+        <Typography variant="h6" color="textSecondary">
+          Carregando livros...
+        </Typography>
+      ) : (
+        <Grid container spacing={1}>
+          {displayedBooks.length === 0 ? (
+            <Typography variant="h6" color="textSecondary">
+              Nenhum livro encontrado.
+            </Typography>
+          ) : (
+            displayedBooks.map((book, index) => (
+              <Grid item xs={12} sm={6} md={4} key={book.id}>
+                <Card
+                  className="book-card"
+                  style={{ height: "100%", position: "relative" }}
+                >
+                  <CardContent className="book-card-content">
+                    <div className="book-info">
+                      <img
+                        src={book.image}
+                        alt={book.titulo}
+                        className="book-image"
+                        onError={(e) => {
+                          e.target.src = "/images/default-book-cover.jpg";
+                        }}
+                      />
+                      <div className="book-details">
+                        <Typography variant="h6" style={{ color: "black" }}>
+                          Título: {book.titulo}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          style={{ color: "gray" }}
+                          gutterBottom
+                        >
+                          Autor: {book.autor}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          style={{ color: "gray" }}
+                          gutterBottom
+                        >
+                          Preço: {book.preco !== undefined ? Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(book.preco) : "Preço não disponível"}
+                        </Typography>
+                        <Typography variant="body2" style={{ color: "gray" }}>
+                          Data de Lançamento:{" "}
+                          {book.data_lancamento ? new Date(book.data_lancamento).toLocaleDateString('pt-BR') : "Data não disponível"}
+                        </Typography>
+                      </div>
+                    </div>
 
-                <div className="book-actions">
-                  <IconButton onClick={() => editBook(book.id)} aria-label="edit">
-                    <FiEdit size={30} color="#000000" />
-                  </IconButton>
-                  <IconButton onClick={() => deleteBook(book.id)} aria-label="delete">
-                    <FiTrash2 size={30} color="#ff4d4d" />
-                  </IconButton>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+                    <div className="book-actions">
+                      <IconButton aria-label="edit" component={Link} to={`/new/${book.id}`}>
+                        <FiEdit size={30} color="#000000" />
+                      </IconButton>
+                      <IconButton onClick={() => deleteBook(book.id)} aria-label="delete">
+                        <FiTrash2 size={30} color="#ff4d4d" />
+                      </IconButton>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))
+          )}
+        </Grid>
+      )}
 
       <div
         style={{

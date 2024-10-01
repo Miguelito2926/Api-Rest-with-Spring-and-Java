@@ -117,7 +117,7 @@ export default function Book() {
                       style={{ color: "gray" }}
                       gutterBottom
                     >
-                      Preço: R$ {book.preco.toFixed(2).replace(".", ",")}
+                      Preço:{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(book.preco)}
                     </Typography>
                     <Typography variant="body2" style={{ color: "gray" }}>
                       Data de Lançamento:{" "}

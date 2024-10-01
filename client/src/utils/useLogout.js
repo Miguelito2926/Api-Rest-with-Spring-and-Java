@@ -5,6 +5,6 @@ export default function useLogout() {
 
   return () => {
     localStorage.clear();
-    navigate('/login');
+    navigate('/');
   };
 }
